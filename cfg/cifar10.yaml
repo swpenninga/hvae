@@ -1,0 +1,69 @@
+backend: tensorflow
+dataset: cifar10
+
+b_act: silu
+p_act: silu
+block_gn: false
+depthwise: false
+num_output_mixtures: 10
+
+stage_in_width: [384]
+enc_middle_width: [96]
+dec_middle_width: [96]
+z_width: [16]
+enc_num_blocks: [22, 11, 6, 3, 0, 1]
+dec_num_blocks: [22, 11, 6, 3, 0, 1]
+
+output_blocks: 5
+z_out_width: 384
+z_out_middle_width: 96
+
+init_zeros: false
+increase_kernelsize: false
+
+flow_type: "none"
+num_flows: [0,0,0,4,8,8]
+
+flow_in_ch: [0,0,0,1,2,8]
+num_ortho_vecs: [0,0,0,4,6,8]
+
+spectral_norm: true
+convsylv_channels: [32]
+convsylv_flows_per_stage: [1]
+convsylv_splitfirst: [1]
+convsylv_stage_limit: [2]
+
+use_depthwise_attention: false
+query_width: 20
+num_queries: 1
+
+batch_size: 32
+batch_size_div: 1
+
+cr_vae: false
+cr_lambda: 0.1
+cr_duplicate_noise: true
+
+epochs: 1000
+early_stopping: 200
+learning_rate: 1e-4
+learning_rate_end: 1e-6
+lr_warmup_epochs: 1
+scheduler: cosd
+optimizer: adamax
+
+weight_decay: 1e-4
+use_ema: true
+gradient_smoothing: 0.69314718056
+gradient_clipnorm: 0
+gradient_skipnorm: 500
+
+beta: 1.0
+beta_warmup_epochs: 0
+cyclic_beta: false
+number_cycles: 3
+
+gpu: "0"
+jit: true
+save: true
+save_dir: /save_folder/
